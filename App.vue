@@ -2,8 +2,12 @@
 
   <div class="black-bg" v-if="모달창열림 == true"> 
     <div class="white-bg">
-      <h4>상세페이지임</h4>
-      <p>상세페이지 내용임</p>
+      <h4>구독목록</h4>
+      <div v-for="(a,i) in 원룸들" :key="i">
+        <div v-if="구독수[i] == 'o' ">
+          <h5>{{원룸들[i].title}} </h5>
+        </div>
+      </div>
       <button @click="모달창열림 = false">닫기</button>
     </div>
   </div>
@@ -15,16 +19,27 @@
   <hr>
   
   <div v-for="(a,i) in 원룸들" :key="i">
-    <img :src="원룸들[i].image" class="room-img">
-    <h4 @click="모달창열림 = true" class="sul">{{원룸들[i].title}} </h4>
+    <img :src="원룸들[i].image" class="room-img"> <br>
+    <h4>{{원룸들[i].title}}</h4>
+    <!-- <input type="checkbox" >{{원룸들[i].title}} <br> -->
+    <!-- <h4 @click="모달창열림 = true" class="sul">{{원룸들[i].title}} </h4> -->
     <p>{{원룸들[i].price}}원 </p>
-    <button @click="구독수[i]++">구독신청</button> <span>구독수 : {{구독수[i]}} </span>
+    <!-- <span>체크한 이름: {{ checkedNames }}</span> -->
+    <button @click="구독수[i]='o' ">선택</button> <button @click="구독수[i]='x' ">취소</button> <span>구독 : {{구독수[i]}} </span>
   </div>
+
+  <div>
+    <h4 @click="모달창열림 = true" class="sul">구독하기 </h4>
+  </div>
+
+
+<br>
 </template>
 
 <script>
 
 import data from './assets/data.js';
+
 
 
 export default {
@@ -35,7 +50,7 @@ export default {
       모달창열림 : false,
       메뉴들 : ['Home', 'Shop', 'About'],
       products : ['역삼동원룸', '천호동원룸', '마포구원룸'],
-      구독수 : [0,0,0,0,0,0],
+      구독수 : ['x','x','x','x','x','x'],
     }
   },
   methods : {
@@ -93,3 +108,4 @@ div {
   padding: 10px;
 }
 </style>
+
